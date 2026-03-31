@@ -1,0 +1,45 @@
+name: Build and Release VyOS
+
+on:
+  push:
+    tags:
+      - "*-main*"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Tag to build"
+        required: true
+
+jobs:
+  build_and_release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    container:
+      image: vyos/vyos-build:current
+      options: --sysctl net.ipv6.conf.lo.disable_ipv6=0 --privileged
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref_name }}
+
+      - name: Build all
+        id: build
+        run: |
+          bash scripts/build-all.sh
+          echo "vyos_version=$(cat build/vyos_version)" >> $GITHUB_OUTPUT
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ steps.build.outputs.vyos_version }}-${{ github.ref_name }}
+          files: build/vyos-${{ steps.build.outputs.vyos_version }}-generic-amd64.iso
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
