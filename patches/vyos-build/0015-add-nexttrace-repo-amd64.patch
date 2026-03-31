@@ -1,11 +1,14 @@
 diff --git a/data/architectures/amd64.toml b/data/architectures/amd64.toml
-index 2e83358f..3bda23e6 100644
+index 784d77ad..6e0340f5 100644
 --- a/data/architectures/amd64.toml
 +++ b/data/architectures/amd64.toml
-@@ -24,3 +24,11 @@ packages = [
-   architecture = "amd64"
-   url = "https://dl.cloudsmith.io/public/isc/kea-3-0/deb/debian"
-   distribution = "bookworm"
+@@ -12,4 +12,12 @@ packages = [
+   "amd64-microcode"
+ ]
+ 
+-serial_interface = "ttyS0,115200"
+\ No newline at end of file
++serial_interface = "ttyS0,115200"
 +
 +[additional_repositories.nexttrace]
 +  architecture = "amd64"

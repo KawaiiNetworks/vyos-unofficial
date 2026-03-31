@@ -1,0 +1,35 @@
+--- a/b/scripts/package-build/linux-kernel/build-intel-qat.sh	2026-03-31 23:03:08.144899837 +0800
++++ b/scripts/package-build/linux-kernel/build-intel-qat.sh	2026-03-31 23:09:59.783528581 +0800
+@@ -53,6 +53,32 @@
+     exit 1
+ fi
+ 
++# Fix for kernel >= 6.8: strlcpy was removed, use strscpy
++find . -name '*.c' -exec sed -i 's/\bstrlcpy\b/strscpy/g' {} +
++
++# Fix for kernel >= 6.9: cpuinfo_x86.phys_proc_id moved to cpuinfo_x86.topo.pkg_id
++find . -name '*.c' -exec sed -i 's/->phys_proc_id/->topo.pkg_id/g' {} +
++
++# Fix for kernel >= 6.12: MODULE_IMPORT_NS() now takes a string argument
++find . -name '*.c' -exec sed -i 's/MODULE_IMPORT_NS(\([^"]*\))/MODULE_IMPORT_NS("\1")/g' {} +
++
++# Fix for kernel >= 6.x: akcipher_alg no longer has .sign/.verify members
++sed -i '/\.sign = qat_rsa_dec,/d; /\.verify = qat_rsa_enc,/d' \
++    quickassist/qat/drivers/crypto/qat/qat_common/qat_asym_algs.c
++
++# Fix for kernel >= 6.4: iommu_present() removed globally, use device_iommu_mapped()
++sed -i 's/iommu_present(&pci_bus_type)/device_iommu_mapped(\&GET_DEV(accel_dev))/g' \
++    quickassist/qat/drivers/crypto/qat/qat_common/adf_init.c \
++    quickassist/qat/drivers/crypto/qat/qat_common/adf_sriov.c
++
++# Fix for kernel >= 6.6: iommu_present and global iommu_domain_alloc removed in qdm.c
++sed -i 's/iommu_configured_passthrough() && iommu_present(&pci_bus_type)/iommu_configured_passthrough()/g' \
++    quickassist/qat/drivers/crypto/qat/qat_common/qdm.c
++sed -i '/int __init qdm_init(void)/,/^}/c\int __init qdm_init(void)\n{\n\treturn 0;\n}' \
++    quickassist/qat/drivers/crypto/qat/qat_common/qdm.c
++sed -i '/if (!domain) {/a \		domain = iommu_paging_domain_alloc(dev);\n		if (!domain) return -ENOMEM;' \
++    quickassist/qat/drivers/crypto/qat/qat_common/qdm.c
++
+ echo "I: Compile Kernel module for Intel ${DRIVER_NAME} driver"
+ mkdir -p \
+     ${DEBIAN_DIR}/lib/firmware \
