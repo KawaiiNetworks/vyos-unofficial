@@ -1,0 +1,15 @@
+diff --git a/src/etc/udev/rules.d/65-vyos-net.rules b/src/etc/udev/rules.d/65-vyos-net.rules
+index 32ae352de..3cd12234c 100644
+--- a/src/etc/udev/rules.d/65-vyos-net.rules
++++ b/src/etc/udev/rules.d/65-vyos-net.rules
+@@ -4,6 +4,10 @@
+ ACTION!="add", 				GOTO="vyos_net_end"
+ SUBSYSTEM!="net",			GOTO="vyos_net_end"
+ 
++# Mellanox switches get to use names that match the front-panel labels
++# Credit: Scott Lamb (https://scottstuff.net/posts/2025/11/11/vyos-on-mellanox-sn2010-switch-part1/)
++DRIVERS=="mlxsw_spectrum*", NAME="en$attr{phys_port_name}", GOTO="vyos_net_end"
++
+ # Do name change for ethernet and wireless devices only
+ KERNEL!="eth*|wlan*|e*", 			GOTO="vyos_net_end"
+ 

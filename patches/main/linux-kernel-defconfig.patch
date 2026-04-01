@@ -2,18 +2,7 @@ diff --git a/scripts/package-build/linux-kernel/config/x86/vyos_defconfig b/scri
 index e27c8820..98e07307 100644
 --- a/scripts/package-build/linux-kernel/config/x86/vyos_defconfig
 +++ b/scripts/package-build/linux-kernel/config/x86/vyos_defconfig
-@@ -936,6 +936,11 @@ CONFIG_ARCH_HAS_SYNC_CORE_BEFORE_USERMODE=y
- CONFIG_ARCH_HAS_SYSCALL_WRAPPER=y
- CONFIG_FREEZER=y
- 
-+#
-+# Memory Management options
-+#
-+CONFIG_SWAP=y
-+
- #
- # SLAB allocator options
- #
+
 @@ -2531,8 +2536,8 @@ CONFIG_ATH10K_USB=m
  # CONFIG_ATH10K_TRACING is not set
  CONFIG_ATH10K_DFS_CERTIFIED=y
@@ -38,3 +27,16 @@ index e27c8820..98e07307 100644
  CONFIG_WLAN_VENDOR_MICROCHIP=y
  # CONFIG_WILC1000_SDIO is not set
  CONFIG_WLAN_VENDOR_PURELIFI=y
+diff --git a/scripts/package-build/linux-kernel/config/00-filesystems.config b/scripts/package-build/linux-kernel/config/00-filesystems.config
+index a17fd36c..6dff51fe 100644
+--- a/scripts/package-build/linux-kernel/config/00-filesystems.config
++++ b/scripts/package-build/linux-kernel/config/00-filesystems.config
+@@ -1,7 +1,7 @@
+ #
+ # Memory Management options
+ #
+-# CONFIG_SWAP is not set
++CONFIG_SWAP=y
+ 
+ #
+ # File systems
