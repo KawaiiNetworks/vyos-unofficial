@@ -1,14 +1,10 @@
 diff --git a/data/architectures/amd64.toml b/data/architectures/amd64.toml
-index 784d77ad..6e0340f5 100644
 --- a/data/architectures/amd64.toml
 +++ b/data/architectures/amd64.toml
-@@ -12,4 +12,12 @@ packages = [
-   "amd64-microcode"
- ]
+@@ -14,3 +14,11 @@
  
--serial_interface = "ttyS0,115200"
-\ No newline at end of file
-+serial_interface = "ttyS0,115200"
+ [boot_settings]
+   console_type = "ttyS"
 +
 +[additional_repositories.nexttrace]
 +  architecture = "amd64"
