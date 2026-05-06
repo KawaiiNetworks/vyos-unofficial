@@ -6,7 +6,6 @@ set -e
 
 cd $VYOS_BUILD_ROOT
 patch -p1 < $PROJECT_ROOT/patches/vyos-build/0011-build-linux-package-toml.patch
-patch -p1 < $PROJECT_ROOT/patches/vyos-build/0012-build-jool.patch
 patch -p1 < $PROJECT_ROOT/patches/vyos-build/0013-build-linux-firmware.patch
 patch -p1 < $PROJECT_ROOT/patches/vyos-build/0014-build-qat.patch
 
