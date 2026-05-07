@@ -16,4 +16,5 @@ cd $VYOS_BUILD_ROOT/scripts/package-build/linux-kernel
 ./build.py --packages linux-kernel
 
 ls -la ./*.deb
-mv ./*.deb $VYOS_BUILD_ROOT/packages/
+# Skip debug package (~400MB) to avoid ISO bloat. BTF is still available in the regular kernel image.
+mv ./*.deb $VYOS_BUILD_ROOT/packages/ && rm -f $VYOS_BUILD_ROOT/packages/*-dbg_*.deb
