@@ -1,9 +1,30 @@
+diff --git a/scripts/package-build/linux-kernel/config/00-filesystems.config b/scripts/package-build/linux-kernel/config/00-filesystems.config
+index bd3ddca..56a4478 100644
+--- a/scripts/package-build/linux-kernel/config/00-filesystems.config
++++ b/scripts/package-build/linux-kernel/config/00-filesystems.config
+@@ -1,7 +1,7 @@
+ #
+ # Memory Management options
+ #
+-# CONFIG_SWAP is not set
++CONFIG_SWAP=y
+ 
+ #
+ # File systems
 diff --git a/scripts/package-build/linux-kernel/config/x86/vyos_defconfig b/scripts/package-build/linux-kernel/config/x86/vyos_defconfig
-index e27c8820..98e07307 100644
+index 3ce5b44..ea3d6c2 100644
 --- a/scripts/package-build/linux-kernel/config/x86/vyos_defconfig
 +++ b/scripts/package-build/linux-kernel/config/x86/vyos_defconfig
-
-@@ -2531,8 +2536,8 @@ CONFIG_ATH10K_USB=m
+@@ -1195,7 +1195,7 @@ CONFIG_BLK_DEV_NULL_BLK=m
+ # CONFIG_BLK_DEV_FD is not set
+ CONFIG_CDROM=m
+ # CONFIG_BLK_DEV_PCIESSD_MTIP32XX is not set
+-# CONFIG_ZRAM is not set
++CONFIG_ZRAM=m
+ CONFIG_BLK_DEV_LOOP=m
+ CONFIG_BLK_DEV_LOOP_MIN_COUNT=8
+ # CONFIG_BLK_DEV_DRBD is not set
+@@ -2014,8 +2014,8 @@ CONFIG_ATH10K_USB=m
  # CONFIG_ATH10K_TRACING is not set
  CONFIG_ATH10K_DFS_CERTIFIED=y
  # CONFIG_WCN36XX is not set
@@ -14,7 +35,7 @@ index e27c8820..98e07307 100644
  # CONFIG_WLAN_VENDOR_ATMEL is not set
  CONFIG_WLAN_VENDOR_BROADCOM=y
  CONFIG_B43=m
-@@ -2635,10 +2640,10 @@ CONFIG_MT7663_USB_SDIO_COMMON=m
+@@ -2117,10 +2117,10 @@ CONFIG_MT7663_USB_SDIO_COMMON=m
  CONFIG_MT7663U=m
  CONFIG_MT7663S=m
  CONFIG_MT7915E=m
@@ -27,16 +48,12 @@ index e27c8820..98e07307 100644
  CONFIG_WLAN_VENDOR_MICROCHIP=y
  # CONFIG_WILC1000_SDIO is not set
  CONFIG_WLAN_VENDOR_PURELIFI=y
-diff --git a/scripts/package-build/linux-kernel/config/00-filesystems.config b/scripts/package-build/linux-kernel/config/00-filesystems.config
-index a17fd36c..6dff51fe 100644
---- a/scripts/package-build/linux-kernel/config/00-filesystems.config
-+++ b/scripts/package-build/linux-kernel/config/00-filesystems.config
-@@ -1,7 +1,7 @@
- #
- # Memory Management options
- #
--# CONFIG_SWAP is not set
-+CONFIG_SWAP=y
+@@ -4442,6 +4442,8 @@ CONFIG_CRYPTO_SIG=y
+ CONFIG_CRYPTO_SHA512=y
+ # end of Hashes, digests, and MACs
  
++CONFIG_CRYPTO_LZO=m
++CONFIG_CRYPTO_ZSTD=m
  #
- # File systems
+ # Accelerated Cryptographic Algorithms for CPU (x86)
+ #
