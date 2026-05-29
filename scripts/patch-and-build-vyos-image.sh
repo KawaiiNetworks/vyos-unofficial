@@ -34,6 +34,7 @@ echo $build_version > $PROJECT_ROOT/build/vyos_version
  --custom-package neofetch \
  --custom-package qemu-guest-agent \
  --custom-package ripgrep \
+ --custom-package systemd-zram-generator \
  --custom-package tree \
  --custom-package wget \
  generic
