@@ -14,7 +14,7 @@ git clone https://github.com/KawaiiNetworks/vyos-unofficial
 cd vyos-unofficial
 git checkout 6.18-main
 
-docker run -it --privileged --sysctl net.ipv6.conf.lo.disable_ipv6=0 -v $(pwd):/vyos -w /vyos vyos/vyos-build:current bash
+docker run -it --privileged --sysctl net.ipv6.conf.lo.disable_ipv6=0 -v $(pwd):/vyos -w /vyos vyos/vyos-build:rolling bash
 ```
 
 In the container (we assume that the current user is not root):
